@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Спортивный клуб</string>
+
+    <!--Тулбар-->
+    <string name="toolbar_settings">Настройки</string>
+    <string name="toolbar_exit">Выход</string>
+
+    <!--Названия табов-->
+
+
+</resources>
