@@ -18,7 +18,7 @@
             android:layout_weight="2">
 
             <TextView
-                android:id="@+id/sportsman_surname"
+                android:id="@+id/coach_surname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Иванов"
@@ -26,7 +26,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sportsman_name"
+                android:id="@+id/coach_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -49,7 +49,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/sportsman_age"
+                android:id="@+id/coach_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
@@ -58,7 +58,7 @@
 
 
             <TextView
-                android:id="@+id/sportsman_gender"
+                android:id="@+id/coach_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="17dp"
@@ -74,7 +74,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/sportsman_kind_of_sport"
+            android:id="@+id/coach_kind_of_sport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Баскетбол"
@@ -83,7 +83,7 @@
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/sportsman_qualification"
+            android:id="@+id/coach_qualification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
@@ -98,7 +98,7 @@
             android:text="рейтинг:" />
 
         <TextView
-            android:id="@+id/sportsman_rating"
+            android:id="@+id/coach_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -107,6 +107,5 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-
 
 </LinearLayout>

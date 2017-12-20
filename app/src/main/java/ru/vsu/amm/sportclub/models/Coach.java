@@ -1,12 +1,8 @@
 package ru.vsu.amm.sportclub.models;
 
-import java.util.List;
 
-/**
- * Модель для спортмена
- */
 
-public class Sportsman {
+public class Coach {
 
     private String surname;
     private String name;
@@ -15,14 +11,12 @@ public class Sportsman {
     private String kindOfSport;
     private String qualification;
     private int rating;
-    private List<String> injury;
-    private Coach coach;
 
-    public Sportsman() {
+    public Coach() {
 
     }
 
-    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, List<String> injury) {
+    public Coach(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating) {
         this.surname = surname;
         this.name = name;
         this.age = age;
@@ -30,19 +24,6 @@ public class Sportsman {
         this.kindOfSport = kindOfSport;
         this.qualification = qualification;
         this.rating = rating;
-        this.injury = injury;
-    }
-
-    @Override
-    public String toString() {
-        return "Фамилия: " + surname + "\n" +
-                "Имя:" + name + "\n" +
-                "Возраст:" + age + "\n" +
-                "Пол:" + gender + "\n" +
-                "Вид спорта:" + kindOfSport + "\n" +
-                "Квалификация:" + qualification + "\n" +
-                "Рейтинг:" + rating + "\n" +
-                "Имя:" + injury.toString() + "\n";
     }
 
     public String getSurname() {
@@ -100,25 +81,4 @@ public class Sportsman {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
-    public List<String> getInjury() {
-        return injury;
-    }
-
-    public String getInjuryToString() {
-        return injury.toString();
-    }
-
-    public void setInjury(List<String> injury) {
-        this.injury = injury;
-    }
-
-    public Coach getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Coach coach) {
-        this.coach = coach;
-    }
 }
-

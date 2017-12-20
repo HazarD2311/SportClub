@@ -44,7 +44,7 @@ public class SportsmanRecycleAdapter extends RecyclerView.Adapter<SportsmanRecyc
     }
 
     public class SportsmanViewHolder extends RecyclerView.ViewHolder {
-        public TextView surname, name, age, gender, kind_of_sport, qualification, rating;
+        private TextView surname, name, age, gender, kind_of_sport, qualification, rating;
 
         public SportsmanViewHolder(View itemView) {
             super(itemView);

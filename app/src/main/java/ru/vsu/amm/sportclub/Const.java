@@ -12,5 +12,7 @@ public class Const {
     public static final String COACH_TITLE = "Тренера";
     public static final String COMPETITION_TITLE = "Соревнования";
 
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
+
 
 }
