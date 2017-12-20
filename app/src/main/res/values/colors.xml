@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#d65504</color>
     <color name="colorAccent">#fd4181</color>
     <color name="mainBackground">#3b3b3b</color>
+    <color name="item_background">#767676</color>
+    <color name="item_words_background">#000335</color>
+    <color name="sportsman_kind_of_sport">#02012e</color>
 </resources>
