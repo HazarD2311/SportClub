@@ -1,14 +1,14 @@
-package ru.vsu.amm.sportclub;
+package ru.vsu.amm.sportclub.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import ru.vsu.amm.sportclub.adapter.TabsAdapter;
+import ru.vsu.amm.sportclub.R;
+import ru.vsu.amm.sportclub.ui.adapter.TabsAdapter;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO: сделать переход в настройки
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 break;

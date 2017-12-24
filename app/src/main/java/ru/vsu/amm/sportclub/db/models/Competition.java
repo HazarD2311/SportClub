@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.models;
+package ru.vsu.amm.sportclub.db.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

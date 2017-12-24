@@ -1,28 +1,39 @@
-package ru.vsu.amm.sportclub.models;
+package ru.vsu.amm.sportclub.db.models;
 
-import java.util.List;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * Модель для спортмена
- */
 
+@DatabaseTable(tableName = "sportsman")
 public class Sportsman {
 
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
+    private int id;
+    @DatabaseField(columnName = "surname", canBeNull = false)
     private String surname;
+    @DatabaseField(columnName = "name", canBeNull = false)
     private String name;
+    @DatabaseField(columnName = "age")
     private int age;
+    @DatabaseField(columnName = "gender")
     private String gender;
+    @DatabaseField(columnName = "kind_of_sport")
     private String kindOfSport;
+    @DatabaseField(columnName = "qualification")
     private String qualification;
+    @DatabaseField(columnName = "rating")
     private int rating;
-    private List<String> injury;
+    @DatabaseField(columnName = "injury")
+    private String injury;
+    //связь один ко многим с таблицей Coach
+    @DatabaseField(columnName = "coach", foreign = true, foreignAutoRefresh = true)
     private Coach coach;
 
     public Sportsman() {
 
     }
 
-    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, List<String> injury) {
+    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, String injury) {
         this.surname = surname;
         this.name = name;
         this.age = age;
@@ -43,6 +54,14 @@ public class Sportsman {
                 "Квалификация:" + qualification + "\n" +
                 "Рейтинг:" + rating + "\n" +
                 "Имя:" + injury.toString() + "\n";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSurname() {
@@ -101,15 +120,11 @@ public class Sportsman {
         this.rating = rating;
     }
 
-    public List<String> getInjury() {
+    public String getInjury() {
         return injury;
     }
 
-    public String getInjuryToString() {
-        return injury.toString();
-    }
-
-    public void setInjury(List<String> injury) {
+    public void setInjury(String injury) {
         this.injury = injury;
     }
 

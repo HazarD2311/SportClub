@@ -1,15 +1,26 @@
-package ru.vsu.amm.sportclub.models;
+package ru.vsu.amm.sportclub.db.models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-
+@DatabaseTable(tableName = "coach")
 public class Coach {
 
+    @DatabaseField(columnName = "id", generatedId = true, canBeNull = false)
+    private int id;
+    @DatabaseField(columnName = "surname", canBeNull = false)
     private String surname;
+    @DatabaseField(columnName = "name", canBeNull = false)
     private String name;
+    @DatabaseField(columnName = "age")
     private int age;
+    @DatabaseField(columnName = "gender")
     private String gender;
+    @DatabaseField(columnName = "kind_of_sport")
     private String kindOfSport;
+    @DatabaseField(columnName = "qualification")
     private String qualification;
+    @DatabaseField(columnName = "rating")
     private int rating;
 
     public Coach() {
@@ -24,6 +35,14 @@ public class Coach {
         this.kindOfSport = kindOfSport;
         this.qualification = qualification;
         this.rating = rating;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSurname() {

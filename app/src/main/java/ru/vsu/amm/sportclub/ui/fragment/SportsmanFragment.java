@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.fragment;
+package ru.vsu.amm.sportclub.ui.fragment;
 
 
 import android.support.v4.app.Fragment;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.adapter.SportsmanRecycleAdapter;
-import ru.vsu.amm.sportclub.models.Sportsman;
+import ru.vsu.amm.sportclub.ui.adapter.SportsmanRecycleAdapter;
+import ru.vsu.amm.sportclub.db.models.Sportsman;
 
 
 public class SportsmanFragment extends Fragment {

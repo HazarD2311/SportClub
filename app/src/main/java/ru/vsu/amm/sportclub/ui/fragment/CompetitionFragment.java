@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.fragment;
+package ru.vsu.amm.sportclub.ui.fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.adapter.CompetitionRecycleAdapter;
-import ru.vsu.amm.sportclub.models.Competition;
+import ru.vsu.amm.sportclub.ui.adapter.CompetitionRecycleAdapter;
+import ru.vsu.amm.sportclub.db.models.Competition;
 
 public class CompetitionFragment extends Fragment {
 

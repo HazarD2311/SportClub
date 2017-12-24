@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.adapter;
+package ru.vsu.amm.sportclub.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.models.Coach;
+import ru.vsu.amm.sportclub.db.models.Coach;
 
 public class CoachRecycleAdapter extends RecyclerView.Adapter<CoachRecycleAdapter.CoachViewHolder> {
 
