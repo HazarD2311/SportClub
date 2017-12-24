@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.ui;
+package ru.vsu.amm.sportclub.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

@@ -5,6 +5,7 @@
     <!--Тулбар-->
     <string name="toolbar_settings">Настройки</string>
     <string name="toolbar_exit">Выход</string>
+    <string name="title_activity_test">TestActivity</string>
 
     <!--Названия табов-->
 
