@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context="ru.vsu.amm.sportclub.ui.activity.AddCoachActivity">
+    tools:context="ru.vsu.amm.sportclub.ui.activity.CoachActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,10 +126,23 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_except_add_coach"
-        android:text="Добавить"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_except_add_coach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Добавить" />
+
+        <Button
+            android:id="@+id/btn_fill_fields_coach"
+            android:text="Заполнить"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+    </LinearLayout>
 
 </LinearLayout>

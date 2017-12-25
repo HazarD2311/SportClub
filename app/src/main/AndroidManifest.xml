@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.AddCoachActivity"></activity>
+        <activity android:name=".ui.activity.CoachActivity"></activity>
     </application>
 
 </manifest>

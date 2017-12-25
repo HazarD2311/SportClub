@@ -14,9 +14,13 @@ import ru.vsu.amm.sportclub.db.models.Coach;
 public class CoachRecycleAdapter extends RecyclerView.Adapter<CoachRecycleAdapter.CoachViewHolder> {
 
     private List<Coach> coachList;
+    private OnItemLongClickListener onItemLongClickListener;
 
-    public CoachRecycleAdapter(List<Coach> coachList) {
+
+    public CoachRecycleAdapter(List<Coach> coachList,
+                               OnItemLongClickListener onItemLongClickListener) {
         this.coachList = coachList;
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override
@@ -26,8 +30,8 @@ public class CoachRecycleAdapter extends RecyclerView.Adapter<CoachRecycleAdapte
     }
 
     @Override
-    public void onBindViewHolder(CoachViewHolder holder, int position) {
-        Coach coach = coachList.get(position);
+    public void onBindViewHolder(final CoachRecycleAdapter.CoachViewHolder holder, final int position) {
+        final Coach coach = coachList.get(position);
         holder.surname.setText(coach.getSurname());
         holder.name.setText(coach.getName());
         holder.age.setText(String.valueOf(coach.getAge()));
@@ -35,6 +39,16 @@ public class CoachRecycleAdapter extends RecyclerView.Adapter<CoachRecycleAdapte
         holder.kind_of_sport.setText(coach.getKindOfSport());
         holder.qualification.setText(coach.getQualification());
         holder.rating.setText(String.valueOf(coach.getRating()));
+
+        if (onItemLongClickListener != null) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onItemLongClickListener.longClick(view, coach, position);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -57,4 +71,7 @@ public class CoachRecycleAdapter extends RecyclerView.Adapter<CoachRecycleAdapte
         }
     }
 
+    public interface OnItemLongClickListener {
+        void longClick(View v, Coach coach, int position);
+    }
 }
