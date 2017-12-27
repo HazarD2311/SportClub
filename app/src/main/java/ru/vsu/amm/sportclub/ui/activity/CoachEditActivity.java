@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
 import ru.vsu.amm.sportclub.db.models.Coach;
 
@@ -15,7 +16,7 @@ import ru.vsu.amm.sportclub.db.models.Coach;
  * или измении записи в БД Coach
  */
 
-public class CoachActivity extends AppCompatActivity {
+public class CoachEditActivity extends AppCompatActivity {
 
     private Button btnExceptAdd, btnFillFields;
     private EditText surname, name, age, gender, kindOfSport, qualification, rating;
@@ -23,13 +24,13 @@ public class CoachActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_coach);
+        setContentView(R.layout.activity_coach);
 
         init();
 
         //позиция элемента, на котором была нажата кнопка Изменить
         final Long id;
-        id = getIntent().getLongExtra("COACH_EDIT_ID", -1);
+        id = getIntent().getLongExtra(Const.COACH_ID_INTENT, -1);
 
         //если пришла id, то заполняем поля для удобства
         if (id != -1) {

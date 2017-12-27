@@ -4,7 +4,7 @@ public class Const {
 
     //Табы
     public static final int SPORTSMAN_TAB = 0;
-    public static final int COACH_TAB = 1; //обращение
+    public static final int COACH_TAB = 1;
     public static final int COMPETITION_TAB = 2;
     public static final int COUNT_OF_TABS = 3;
 
@@ -13,6 +13,10 @@ public class Const {
     public static final String COMPETITION_TITLE = "Соревнования";
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
+
+    public static final String COACH_ID_INTENT = "COACH_EDIT_ID";
+    public static final String SPORTSMAN_ID_INTENT = "SPORTSMAN_EDIT_ID";
+
 
 
 }

@@ -82,4 +82,10 @@ public class Coach extends SugarRecord {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return this.getSurname() + " " + this.getName();
+    }
+
 }

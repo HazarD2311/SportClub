@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
     android:background="@color/item_background"
+    android:clickable="true"
     android:orientation="vertical"
     android:padding="7dp">
 
@@ -108,5 +109,48 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тренер:"
+            android:textStyle="italic"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/sportsmans_coach_name"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Иванов Иван"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Травма:"
+            android:textStyle=""
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/sportsman_injury"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сломана нога"
+            android:textSize="17sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

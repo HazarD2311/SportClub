@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context="ru.vsu.amm.sportclub.ui.activity.CoachActivity">
+    tools:context="ru.vsu.amm.sportclub.ui.activity.CoachEditActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

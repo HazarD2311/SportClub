@@ -1,9 +1,10 @@
 package ru.vsu.amm.sportclub.db.models;
 
 
-public class Sportsman {
+import com.orm.SugarRecord;
 
-    private int id;
+public class Sportsman extends SugarRecord {
+
     private String surname;
     private String name;
     private int age;
@@ -16,10 +17,19 @@ public class Sportsman {
     private Coach coach;
 
     public Sportsman() {
+        this.surname = "";
+        this.name = "";
+        this.age = 0;
+        this.gender = "";
+        this.kindOfSport = "";
+        this.qualification = "";
+        this.rating = 0;
+        this.injury = "";
+        this.coach = null;
 
     }
 
-    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, String injury) {
+    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, String injury, Coach coach) {
         this.surname = surname;
         this.name = name;
         this.age = age;
@@ -28,6 +38,7 @@ public class Sportsman {
         this.qualification = qualification;
         this.rating = rating;
         this.injury = injury;
+        this.coach = coach;
     }
 
     @Override
@@ -40,14 +51,6 @@ public class Sportsman {
                 "Квалификация:" + qualification + "\n" +
                 "Рейтинг:" + rating + "\n" +
                 "Имя:" + injury.toString() + "\n";
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getSurname() {

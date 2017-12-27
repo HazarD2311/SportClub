@@ -14,10 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
 import java.util.List;
 
+import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.ui.activity.CoachActivity;
+import ru.vsu.amm.sportclub.db.models.Sportsman;
+import ru.vsu.amm.sportclub.ui.activity.CoachEditActivity;
 import ru.vsu.amm.sportclub.ui.adapter.CoachRecycleAdapter;
 import ru.vsu.amm.sportclub.db.models.Coach;
 
@@ -55,14 +60,15 @@ public class CoachFragment extends Fragment {
         });
 
         readFromDB();
-        initRecycleView();
-
+        if (!coachList.isEmpty()) {
+            initRecycleView();
+        }
 
         return view;
     }
 
     private void openAddActivity() {
-        Intent intent = new Intent(getActivity(), CoachActivity.class);
+        Intent intent = new Intent(getActivity(), CoachEditActivity.class);
         startActivity(intent);
     }
 
@@ -90,11 +96,9 @@ public class CoachFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.popup_edit:
-                        //вызвать диалоговое окно с переименованием
                         showEditActivity(id);
                         return true;
                     case R.id.popup_delete:
-                        //удалить из списка элемент
                         deleteCoach(id, position);
                         return true;
                     default:
@@ -102,24 +106,38 @@ public class CoachFragment extends Fragment {
                 }
             }
         });
-        popupMenu.inflate(R.menu.recycler_popup);
+        popupMenu.inflate(R.menu.popup);
         popupMenu.show();
     }
 
     private void showEditActivity(Long id) {
-        Intent intent = new Intent(getActivity(), CoachActivity.class);
-        intent.putExtra("COACH_EDIT_ID", id);
+        Intent intent = new Intent(getActivity(), CoachEditActivity.class);
+        intent.putExtra(Const.COACH_ID_INTENT, id);
         startActivity(intent);
     }
 
     private void deleteCoach(Long id, int position) {
-        //удаляем из БД
         Coach coach = Coach.findById(Coach.class, id);
+
+        //убрать у спортсменов удаленного тренера
+        //ссылку на теперь несуществующего тренера
+        deleteCoachFromSportsmans(id);
+
+        //теперь можем смело удалять из БД
         coach.delete();
 
-        //удаляем из списка и оповещаем Recycler
+        //удаляем из списка и оповещаем RecyclerView
         coachList.remove(position);
         recyclerAdapter.notifyItemRemoved(position);
+
+    }
+
+    private void deleteCoachFromSportsmans(Long id) {
+        List<Sportsman> sportsmens = Sportsman.find(Sportsman.class, "coach = ?", String.valueOf(id));
+
+        for (Sportsman sportsman : sportsmens) {
+            sportsman.setCoach(null);
+        }
 
     }
 
