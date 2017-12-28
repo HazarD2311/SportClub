@@ -43,14 +43,7 @@ public class Sportsman extends SugarRecord {
 
     @Override
     public String toString() {
-        return "Фамилия: " + surname + "\n" +
-                "Имя:" + name + "\n" +
-                "Возраст:" + age + "\n" +
-                "Пол:" + gender + "\n" +
-                "Вид спорта:" + kindOfSport + "\n" +
-                "Квалификация:" + qualification + "\n" +
-                "Рейтинг:" + rating + "\n" +
-                "Имя:" + injury.toString() + "\n";
+        return this.getSurname() + " " + this.getName() + ": " + this.getKindOfSport();
     }
 
     public String getSurname() {

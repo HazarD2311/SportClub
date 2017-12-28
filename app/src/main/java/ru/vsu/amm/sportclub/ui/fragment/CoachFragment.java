@@ -14,9 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orm.query.Condition;
-import com.orm.query.Select;
-
 import java.util.List;
 
 import ru.vsu.amm.sportclub.Const;
@@ -121,7 +118,7 @@ public class CoachFragment extends Fragment {
 
         //убрать у спортсменов удаленного тренера
         //ссылку на теперь несуществующего тренера
-        deleteCoachFromSportsmans(id);
+        deleteCoachFromSportsmen(id);
 
         //теперь можем смело удалять из БД
         coach.delete();
@@ -132,10 +129,10 @@ public class CoachFragment extends Fragment {
 
     }
 
-    private void deleteCoachFromSportsmans(Long id) {
-        List<Sportsman> sportsmens = Sportsman.find(Sportsman.class, "coach = ?", String.valueOf(id));
+    private void deleteCoachFromSportsmen(Long id) {
+        List<Sportsman> sportsmen = Sportsman.find(Sportsman.class, "coach = ?", String.valueOf(id));
 
-        for (Sportsman sportsman : sportsmens) {
+        for (Sportsman sportsman : sportsmen) {
             sportsman.setCoach(null);
         }
 

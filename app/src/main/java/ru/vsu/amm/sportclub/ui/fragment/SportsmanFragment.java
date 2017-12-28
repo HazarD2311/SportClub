@@ -55,7 +55,6 @@ public class SportsmanFragment extends Fragment {
             }
         });
 
-
         readFromDB();
         if (!sportsmanList.isEmpty()) {
             initRecycleView();

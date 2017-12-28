@@ -26,7 +26,7 @@ public class SportsmanEditActivity extends AppCompatActivity {
 
     private Button btnExceptAdd, btnFillFields;
     private EditText surname, name, age, gender, kindOfSport, qualification, rating, injury;
-    private Spinner coachSpinner;
+    private Spinner coachSpinner, competitionSpinner;
     private List<Coach> coachList;
     //выбранный Тренер из списка (Spinner)
     private Coach choosenCoach;
@@ -49,7 +49,7 @@ public class SportsmanEditActivity extends AppCompatActivity {
 
         //получаем список Тренеров, для последующего подставления в Spinner
         getAllCoaches();
-        initSpinner();
+        initCoachSpinner();
 
 
         btnFillFields.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +157,7 @@ public class SportsmanEditActivity extends AppCompatActivity {
         injury = (EditText) findViewById(R.id.edit_add_sportsman_injury);
     }
 
-    private void initSpinner() {
+    private void initCoachSpinner() {
         coachSpinner = (Spinner) findViewById(R.id.sportsman_choose_coach_spinner);
         ArrayAdapter<Coach> adapter = new ArrayAdapter<Coach>(this, android.R.layout.simple_spinner_item, coachList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

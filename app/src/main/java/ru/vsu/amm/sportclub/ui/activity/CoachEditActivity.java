@@ -13,7 +13,7 @@ import ru.vsu.amm.sportclub.db.models.Coach;
 
 /**
  * Активити для заполнения данных при добавлении
- * или измении записи в БД Coach
+ * или измении записи в Таблицу Coach
  */
 
 public class CoachEditActivity extends AppCompatActivity {

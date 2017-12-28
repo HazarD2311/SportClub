@@ -1,24 +1,30 @@
 package ru.vsu.amm.sportclub.db.models;
 
+import com.orm.SugarRecord;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ru.vsu.amm.sportclub.Const;
 
-public class Competition {
+/**
+ * Таблица для учета проводимых соревнований
+ */
+
+public class Competition extends SugarRecord {
 
     private String name;
-    private String kind_of_sport;
-    private String location;
-    private Date date;
+    private String kindOfSport;
+    private Location location;
+    private String date;
 
     public Competition() {
 
     }
 
-    public Competition(String name, String kind_of_sport, String location, Date date) {
+    public Competition(String name, String kind_of_sport, Location location, String date) {
         this.name = name;
-        this.kind_of_sport = kind_of_sport;
+        this.kindOfSport = kind_of_sport;
         this.location = location;
         this.date = date;
     }
@@ -31,32 +37,32 @@ public class Competition {
         this.name = name;
     }
 
-    public String getKind_of_sport() {
-        return kind_of_sport;
+    public String getKindOfSport() {
+        return kindOfSport;
     }
 
-    public void setKind_of_sport(String kind_of_sport) {
-        this.kind_of_sport = kind_of_sport;
+    public void setKindOfSport(String kindOfSport) {
+        this.kindOfSport = kindOfSport;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public String getDateString() {
+    /*public String getDateString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(Const.DATE_FORMAT);
         return dateFormat.format(date);
-    }
+    }*/
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

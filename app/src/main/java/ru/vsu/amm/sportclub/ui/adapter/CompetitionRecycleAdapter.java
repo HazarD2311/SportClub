@@ -9,14 +9,21 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.R;
+import ru.vsu.amm.sportclub.db.models.Coach;
 import ru.vsu.amm.sportclub.db.models.Competition;
 
 public class CompetitionRecycleAdapter extends RecyclerView.Adapter<CompetitionRecycleAdapter.CompetitionViewHolder> {
 
     private List<Competition> competitionList;
+    private CompetitionRecycleAdapter.OnItemLongClickListener longClickListener;
+    private CompetitionRecycleAdapter.OnItemClickListener clickListener;
 
-    public CompetitionRecycleAdapter(List<Competition> competitionList) {
+    public CompetitionRecycleAdapter(List<Competition> competitionList,
+                                     CompetitionRecycleAdapter.OnItemClickListener clickListener,
+                                     CompetitionRecycleAdapter.OnItemLongClickListener longClickListener) {
         this.competitionList = competitionList;
+        this.clickListener = clickListener;
+        this.longClickListener = longClickListener;
     }
 
     @Override
@@ -26,12 +33,31 @@ public class CompetitionRecycleAdapter extends RecyclerView.Adapter<CompetitionR
     }
 
     @Override
-    public void onBindViewHolder(CompetitionViewHolder holder, int position) {
-        Competition competition = competitionList.get(position);
+    public void onBindViewHolder(CompetitionViewHolder holder, final int position) {
+        final Competition competition = competitionList.get(position);
         holder.name.setText(competition.getName());
-        holder.kind_of_sport.setText(competition.getKind_of_sport());
-        holder.location.setText(competition.getLocation());
-        holder.date.setText(competition.getDateString());
+        holder.kind_of_sport.setText(competition.getKindOfSport());
+        if (competition.getLocation() != null)
+            holder.location.setText(competition.getLocation().toString());
+        holder.date.setText(competition.getDate());
+
+        if (clickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.click(view, competition);
+                }
+            });
+        }
+        if (longClickListener != null) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    longClickListener.longClick(view, competition, position);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -49,6 +75,14 @@ public class CompetitionRecycleAdapter extends RecyclerView.Adapter<CompetitionR
             location = (TextView) itemView.findViewById(R.id.competition_location);
             date = (TextView) itemView.findViewById(R.id.competition_date);
         }
+    }
+
+    public interface OnItemClickListener {
+        void click(View v, Competition competition);
+    }
+
+    public interface OnItemLongClickListener {
+        void longClick(View v, Competition competition, int position);
     }
 
 }

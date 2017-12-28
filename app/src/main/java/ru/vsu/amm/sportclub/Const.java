@@ -16,6 +16,8 @@ public class Const {
 
     public static final String COACH_ID_INTENT = "COACH_EDIT_ID";
     public static final String SPORTSMAN_ID_INTENT = "SPORTSMAN_EDIT_ID";
+    public static final String COMPETITION_ID_INTENT = "COMPETITION_EDIT_ID";
+    public static final String COMPETITION_TO_SEE_SPORTSMEN_INTENT = "COMPETITION_TO_SEE_SPORTSMEN_INTENT";
 
 
 

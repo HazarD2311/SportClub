@@ -33,7 +33,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.CoachEditActivity" />
-        <activity android:name=".ui.activity.SportsmanEditActivity"></activity>
+        <activity android:name=".ui.activity.SportsmanEditActivity" />
+        <activity android:name=".ui.activity.CompetitionEditActivity" />
+        <activity android:name=".ui.activity.SportsmenInCompetitionActivity"></activity>
     </application>
 
 </manifest>

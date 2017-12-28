@@ -3,27 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp"
-    tools:context="ru.vsu.amm.sportclub.ui.activity.SportsmanEditActivity">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Фамилия:"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/edit_add_sportsman_surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    tools:context="ru.vsu.amm.sportclub.ui.activity.CompetitionEditActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,45 +15,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Имя:"
+            android:text="Название:"
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/edit_add_sportsman_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Возраст:"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/edit_add_sportsman_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Пол:"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/edit_add_sportsman_gender"
+            android:id="@+id/edit_competition_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -87,7 +36,7 @@
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/edit_add_sportsman_sport"
+            android:id="@+id/edit_competition_kind_of_sport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -100,11 +49,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Квалификация:"
+            android:text="Место:"
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/edit_add_sportsman_qualification"
+            android:id="@+id/edit_competition_location_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -117,11 +66,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Рейтинг:"
+            android:text="Адрес:"
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/edit_add_sportsman_rating"
+            android:id="@+id/edit_competition_location_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -134,52 +83,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Тренер:"
-            android:textSize="17sp" />
-
-        <Spinner
-            android:id="@+id/sportsman_choose_coach_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Травма:"
+            android:text="Дата:"
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/edit_add_sportsman_injury"
+            android:id="@+id/edit_competition_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/competition_choose_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btn_except_add_sportsman"
+            android:id="@+id/btn_except_add_competition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Добавить" />
 
         <Button
-            android:id="@+id/btn_fill_fields_sportsman"
+            android:id="@+id/btn_fill_fields_competition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Заполнить" />
     </LinearLayout>
-
 
 </LinearLayout>
