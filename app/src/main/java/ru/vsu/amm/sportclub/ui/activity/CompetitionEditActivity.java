@@ -35,7 +35,8 @@ public class CompetitionEditActivity extends AppCompatActivity {
     private Button btnExceptAdd, btnFillFields;
     private EditText edName, edKindOfSport, edLocationName, edLocationAddress, edDate;
     private ListView chooseSportsmen;
-    private List<Sportsman> sportsmenInCompetition;
+    //выбранные спортсмены
+    private Sportsman[] sportsmenInCompetition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,10 @@ public class CompetitionEditActivity extends AppCompatActivity {
 
     private void saveInCompetitors(Competition competition) {
         for (Sportsman s : sportsmenInCompetition) {
-            Competitors competitiors = new Competitors(competition, s);
-            competitiors.save();
+            if (s != null) {
+                Competitors competitiors = new Competitors(competition, s);
+                competitiors.save();
+            }
         }
     }
 
@@ -98,20 +101,18 @@ public class CompetitionEditActivity extends AppCompatActivity {
         chooseSportsmen.setAdapter(adapter);
 
         //выбираем из здоровых спортсменов отмеченные пользователем
-        sportsmenInCompetition = new ArrayList<>();
+        sportsmenInCompetition = new Sportsman[sportsmenCanGo.size()];
         chooseSportsmen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 SparseBooleanArray chosen = ((ListView) adapterView).getCheckedItemPositions();
-                for (int j = 0; j < chosen.size(); j++) {
-                    if (chosen.valueAt(j)) {
-                        //TODO: дубликаты в списке при нескольких нажатиях
-                        sportsmenInCompetition.add(sportsmenCanGo.get(chosen.keyAt(j)));
-                    }
+                if (chosen.valueAt(i)) {
+                    sportsmenInCompetition[i] = sportsmenCanGo.get(chosen.keyAt(i));
+                } else {
+                    sportsmenInCompetition[i] = null;
                 }
             }
         });
-
     }
 
     private void init() {
@@ -125,9 +126,9 @@ public class CompetitionEditActivity extends AppCompatActivity {
     }
 
     private void useDatePicker() {
-        edDate.setOnTouchListener(new View.OnTouchListener() {
+        edDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public void onClick(View v) {
                 //нынешняя дата
                 final Calendar calendar = Calendar.getInstance();
                 int mYear = calendar.get(Calendar.YEAR);
@@ -142,7 +143,6 @@ public class CompetitionEditActivity extends AppCompatActivity {
                             }
                         }, mYear, mMonth, mDay);
                 dialog.show();
-                return true;
             }
         });
     }
