@@ -1,9 +1,9 @@
-package ru.vsu.amm.sportclub.db.models;
+package ru.vsu.amm.sportclub.data;
 
 
 import com.orm.SugarRecord;
 
-public class Coach extends SugarRecord {
+public class Sportsman extends SugarRecord {
 
     private String surname;
     private String name;
@@ -12,12 +12,24 @@ public class Coach extends SugarRecord {
     private String kindOfSport;
     private String qualification;
     private int rating;
+    private String injury;
+    //связь один ко многим с таблицей Coach
+    private Coach coach;
 
-    public Coach() {
+    public Sportsman() {
+        this.surname = "";
+        this.name = "";
+        this.age = 0;
+        this.gender = "";
+        this.kindOfSport = "";
+        this.qualification = "";
+        this.rating = 0;
+        this.injury = "";
+        this.coach = null;
 
     }
 
-    public Coach(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating) {
+    public Sportsman(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating, String injury, Coach coach) {
         this.surname = surname;
         this.name = name;
         this.age = age;
@@ -25,6 +37,13 @@ public class Coach extends SugarRecord {
         this.kindOfSport = kindOfSport;
         this.qualification = qualification;
         this.rating = rating;
+        this.injury = injury;
+        this.coach = coach;
+    }
+
+    @Override
+    public String toString() {
+        return this.getSurname() + " " + this.getName() + ": " + this.getKindOfSport();
     }
 
     public String getSurname() {
@@ -83,9 +102,20 @@ public class Coach extends SugarRecord {
         this.rating = rating;
     }
 
-    @Override
-    public String toString() {
-        return this.getSurname() + " " + this.getName();
+    public String getInjury() {
+        return injury;
     }
 
+    public void setInjury(String injury) {
+        this.injury = injury;
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
 }
+

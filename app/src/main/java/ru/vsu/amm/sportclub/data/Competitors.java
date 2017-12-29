@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.db.models;
+package ru.vsu.amm.sportclub.data;
 
 import com.orm.SugarRecord;
 

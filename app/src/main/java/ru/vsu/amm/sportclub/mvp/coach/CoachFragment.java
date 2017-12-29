@@ -1,10 +1,11 @@
-package ru.vsu.amm.sportclub.ui.fragment;
+package ru.vsu.amm.sportclub.mvp.coach;
+
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -14,26 +15,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.db.models.Sportsman;
-import ru.vsu.amm.sportclub.ui.activity.CoachEditActivity;
-import ru.vsu.amm.sportclub.ui.adapter.CoachRecycleAdapter;
-import ru.vsu.amm.sportclub.db.models.Coach;
+import ru.vsu.amm.sportclub.adapter.CoachRecycleAdapter;
+import ru.vsu.amm.sportclub.data.Coach;
 
+/**
+ * Фрагмент отвечает за показ списка имеющихся тренеров
+ * и возможность работать с ними
+ */
 
-public class CoachFragment extends Fragment {
+public class CoachFragment extends Fragment implements CoachView {
 
     private static final int LAYOUT = R.layout.coaches_fragment;
 
     private View view;
-    private List<Coach> coachList;
     private RecyclerView recyclerView;
     private CoachRecycleAdapter recyclerAdapter;
     private FloatingActionButton btnAddCoach;
 
+    private CoachPresenter presenter;
 
     public static CoachFragment getInstance() {
         Bundle args = new Bundle();
@@ -48,6 +49,10 @@ public class CoachFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
 
+        CoachModel model = new CoachModel();
+        presenter = new CoachPresenter(model);
+        presenter.attachView(this);
+
         btnAddCoach = (FloatingActionButton) view.findViewById(R.id.btn_add_coach);
         btnAddCoach.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,23 +61,18 @@ public class CoachFragment extends Fragment {
             }
         });
 
-        readFromDB();
-        if (!coachList.isEmpty()) {
+        presenter.loadCoaches();
+        if (!presenter.isCoachListNull()) {
             initRecycleView();
         }
 
         return view;
     }
 
-    private void openAddActivity() {
-        Intent intent = new Intent(getActivity(), CoachEditActivity.class);
-        startActivity(intent);
-    }
-
     private void initRecycleView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.coach_recycle);
         //создаем адаптер
-        recyclerAdapter = new CoachRecycleAdapter(coachList,
+        recyclerAdapter = new CoachRecycleAdapter(presenter.getCoaches(),
                 new CoachRecycleAdapter.OnItemLongClickListener() {
                     @Override
                     public void longClick(View v, Coach coach, int position) {
@@ -96,7 +96,8 @@ public class CoachFragment extends Fragment {
                         showEditActivity(id);
                         return true;
                     case R.id.popup_delete:
-                        deleteCoach(id, position);
+                        presenter.deleteCoach(id, position);
+                        deleteCoachFromRecycler(position);
                         return true;
                     default:
                         return false;
@@ -107,39 +108,19 @@ public class CoachFragment extends Fragment {
         popupMenu.show();
     }
 
+    private void deleteCoachFromRecycler(int position) {
+        recyclerAdapter.notifyItemRemoved(position);
+    }
+
     private void showEditActivity(Long id) {
         Intent intent = new Intent(getActivity(), CoachEditActivity.class);
         intent.putExtra(Const.COACH_ID_INTENT, id);
         startActivity(intent);
     }
 
-    private void deleteCoach(Long id, int position) {
-        Coach coach = Coach.findById(Coach.class, id);
-
-        //убрать у спортсменов удаленного тренера
-        //ссылку на теперь несуществующего тренера
-        deleteCoachFromSportsmen(id);
-
-        //теперь можем смело удалять из БД
-        coach.delete();
-
-        //удаляем из списка и оповещаем RecyclerView
-        coachList.remove(position);
-        recyclerAdapter.notifyItemRemoved(position);
-
-    }
-
-    private void deleteCoachFromSportsmen(Long id) {
-        List<Sportsman> sportsmen = Sportsman.find(Sportsman.class, "coach = ?", String.valueOf(id));
-
-        for (Sportsman sportsman : sportsmen) {
-            sportsman.setCoach(null);
-        }
-
-    }
-
-    private void readFromDB() {
-        coachList = Coach.listAll(Coach.class);
+    private void openAddActivity() {
+        Intent intent = new Intent(getActivity(), CoachEditActivity.class);
+        startActivity(intent);
     }
 
 }

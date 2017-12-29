@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.ui.activity;
+package ru.vsu.amm.sportclub.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import java.util.List;
 
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.db.models.Competitors;
-import ru.vsu.amm.sportclub.db.models.Sportsman;
+import ru.vsu.amm.sportclub.data.Competitors;
+import ru.vsu.amm.sportclub.data.Sportsman;
 
 public class SportsmenInCompetitionActivity extends AppCompatActivity {
 

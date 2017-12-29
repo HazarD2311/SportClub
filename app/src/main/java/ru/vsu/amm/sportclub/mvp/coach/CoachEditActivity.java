@@ -1,32 +1,34 @@
-package ru.vsu.amm.sportclub.ui.activity;
+package ru.vsu.amm.sportclub.mvp.coach;
+
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.db.models.Coach;
+import ru.vsu.amm.sportclub.activity.MainActivity;
+import ru.vsu.amm.sportclub.data.Coach;
 
-/**
- * Активити для заполнения данных при добавлении
- * или измении записи в Таблицу Coach
- */
-
-public class CoachEditActivity extends AppCompatActivity {
+public class CoachEditActivity extends AppCompatActivity implements CoachView {
 
     private Button btnExceptAdd, btnFillFields;
     private EditText surname, name, age, gender, kindOfSport, qualification, rating;
+
+    private CoachPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach);
 
-        init();
+        CoachModel model = new CoachModel();
+        presenter = new CoachPresenter(model);
+        presenter.attachView(this);
+        initResources();
 
         //позиция элемента, на котором была нажата кнопка Изменить
         final Long id;
@@ -47,13 +49,36 @@ public class CoachEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (id != -1) {
-                    updateCoach(id);
+                    presenter.updateCoach(id, getNewCoach());
                 } else {
-                    addNewCoach();
+                    presenter.addNewCoach(getNewCoach());
                 }
                 backToMainActivity();
             }
         });
+    }
+
+    private void initResources() {
+        btnExceptAdd = (Button) findViewById(R.id.btn_except_add_coach);
+        btnFillFields = (Button) findViewById(R.id.btn_fill_fields_coach);
+        surname = (EditText) findViewById(R.id.edit_add_coach_surname);
+        name = (EditText) findViewById(R.id.edit_add_coach_name);
+        age = (EditText) findViewById(R.id.edit_add_coach_age);
+        gender = (EditText) findViewById(R.id.edit_add_coach_gender);
+        kindOfSport = (EditText) findViewById(R.id.edit_add_coach_sport);
+        qualification = (EditText) findViewById(R.id.edit_add_coach_qualification);
+        rating = (EditText) findViewById(R.id.edit_add_coach_rating);
+    }
+
+    private void fillFieldsFromEdit(Long id) {
+        Coach coach = presenter.getCoach(id);
+        surname.setText(coach.getSurname());
+        name.setText(coach.getName());
+        age.setText(String.valueOf(coach.getAge()));
+        gender.setText(coach.getGender());
+        kindOfSport.setText(coach.getKindOfSport());
+        qualification.setText(coach.getQualification());
+        rating.setText(String.valueOf(coach.getRating()));
     }
 
     private void fillFields() {
@@ -66,18 +91,7 @@ public class CoachEditActivity extends AppCompatActivity {
         rating.setText("5");
     }
 
-    private void fillFieldsFromEdit(Long id) {
-        Coach coach = Coach.findById(Coach.class, id);
-        surname.setText(coach.getSurname());
-        name.setText(coach.getName());
-        age.setText(String.valueOf(coach.getAge()));
-        gender.setText(coach.getGender());
-        kindOfSport.setText(coach.getKindOfSport());
-        qualification.setText(coach.getQualification());
-        rating.setText(String.valueOf(coach.getRating()));
-    }
-
-    private void addNewCoach() {
+    private Coach getNewCoach() {
         String strSurname, strName, strGender, strKindOfSport, strQualification;
         int strAge, strRating;
         strSurname = surname.getText().toString();
@@ -88,24 +102,7 @@ public class CoachEditActivity extends AppCompatActivity {
         strQualification = qualification.getText().toString();
         strRating = Integer.parseInt(rating.getText().toString());
 
-        //добавляем в БД
-        Coach coach = new Coach(strSurname, strName, strAge, strGender, strKindOfSport, strQualification, strRating);
-        coach.save();
-    }
-
-    private void updateCoach(Long id) {
-        String strSurname, strName, strGender, strKindOfSport, strQualification;
-        int strAge, strRating;
-        strSurname = surname.getText().toString();
-        strName = name.getText().toString();
-        strAge = Integer.parseInt(age.getText().toString());
-        strGender = gender.getText().toString();
-        strKindOfSport = kindOfSport.getText().toString();
-        strQualification = qualification.getText().toString();
-        strRating = Integer.parseInt(rating.getText().toString());
-
-        //обновляем БД
-        Coach coach = Coach.findById(Coach.class, id);
+        Coach coach = new Coach();
         coach.setSurname(strSurname);
         coach.setName(strName);
         coach.setAge(strAge);
@@ -113,24 +110,12 @@ public class CoachEditActivity extends AppCompatActivity {
         coach.setKindOfSport(strKindOfSport);
         coach.setQualification(strQualification);
         coach.setRating(strRating);
-        coach.save();
+
+        return coach;
     }
 
     private void backToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-
-
-    private void init() {
-        btnExceptAdd = (Button) findViewById(R.id.btn_except_add_coach);
-        btnFillFields = (Button) findViewById(R.id.btn_fill_fields_coach);
-        surname = (EditText) findViewById(R.id.edit_add_coach_surname);
-        name = (EditText) findViewById(R.id.edit_add_coach_name);
-        age = (EditText) findViewById(R.id.edit_add_coach_age);
-        gender = (EditText) findViewById(R.id.edit_add_coach_gender);
-        kindOfSport = (EditText) findViewById(R.id.edit_add_coach_sport);
-        qualification = (EditText) findViewById(R.id.edit_add_coach_qualification);
-        rating = (EditText) findViewById(R.id.edit_add_coach_rating);
     }
 }

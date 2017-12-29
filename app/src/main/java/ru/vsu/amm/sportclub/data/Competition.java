@@ -1,11 +1,6 @@
-package ru.vsu.amm.sportclub.db.models;
+package ru.vsu.amm.sportclub.data;
 
 import com.orm.SugarRecord;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import ru.vsu.amm.sportclub.Const;
 
 /**
  * Таблица для учета проводимых соревнований

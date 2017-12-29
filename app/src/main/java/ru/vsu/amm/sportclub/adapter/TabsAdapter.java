@@ -1,13 +1,13 @@
-package ru.vsu.amm.sportclub.ui.adapter;
+package ru.vsu.amm.sportclub.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import ru.vsu.amm.sportclub.Const;
-import ru.vsu.amm.sportclub.ui.fragment.CoachFragment;
-import ru.vsu.amm.sportclub.ui.fragment.CompetitionFragment;
-import ru.vsu.amm.sportclub.ui.fragment.SportsmanFragment;
+import ru.vsu.amm.sportclub.fragment.CompetitionFragment;
+import ru.vsu.amm.sportclub.mvp.coach.CoachFragment;
+import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {
 

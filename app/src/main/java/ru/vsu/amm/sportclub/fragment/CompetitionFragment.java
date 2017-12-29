@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.ui.fragment;
+package ru.vsu.amm.sportclub.fragment;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +19,11 @@ import java.util.List;
 
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.db.models.Competitors;
-import ru.vsu.amm.sportclub.ui.activity.CompetitionEditActivity;
-import ru.vsu.amm.sportclub.ui.activity.SportsmenInCompetitionActivity;
-import ru.vsu.amm.sportclub.ui.adapter.CompetitionRecycleAdapter;
-import ru.vsu.amm.sportclub.db.models.Competition;
+import ru.vsu.amm.sportclub.data.Competitors;
+import ru.vsu.amm.sportclub.activity.CompetitionEditActivity;
+import ru.vsu.amm.sportclub.activity.SportsmenInCompetitionActivity;
+import ru.vsu.amm.sportclub.adapter.CompetitionRecycleAdapter;
+import ru.vsu.amm.sportclub.data.Competition;
 
 public class CompetitionFragment extends Fragment {
 

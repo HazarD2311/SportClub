@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
-    tools:context="ru.vsu.amm.sportclub.ui.activity.CompetitionEditActivity"
+    tools:context=".activity.CompetitionEditActivity"
     android:orientation="vertical">
 
     <LinearLayout

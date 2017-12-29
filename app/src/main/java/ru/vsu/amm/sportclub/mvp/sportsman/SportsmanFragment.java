@@ -1,11 +1,11 @@
-package ru.vsu.amm.sportclub.ui.fragment;
+package ru.vsu.amm.sportclub.mvp.sportsman;
 
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -15,24 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.ui.activity.SportsmanEditActivity;
-import ru.vsu.amm.sportclub.ui.adapter.SportsmanRecycleAdapter;
-import ru.vsu.amm.sportclub.db.models.Sportsman;
+import ru.vsu.amm.sportclub.adapter.SportsmanRecycleAdapter;
+import ru.vsu.amm.sportclub.data.Sportsman;
 
-
-public class SportsmanFragment extends Fragment {
+public class SportsmanFragment extends Fragment implements SportsmanView {
 
     private static final int LAYOUT = R.layout.sportsmans_fragment;
 
     private View view;
-    private List<Sportsman> sportsmanList;
     private RecyclerView recyclerView;
     private SportsmanRecycleAdapter recycleAdapter;
     private FloatingActionButton btnAddSportsman;
+
+    private SportsmanPresenter presenter;
 
     public static SportsmanFragment getInstance() {
         Bundle args = new Bundle();
@@ -47,6 +44,10 @@ public class SportsmanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
 
+        SportsmanModel model = new SportsmanModel();
+        presenter = new SportsmanPresenter(model);
+        presenter.attachView(this);
+
         btnAddSportsman = (FloatingActionButton) view.findViewById(R.id.btn_add_sportsman);
         btnAddSportsman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +56,8 @@ public class SportsmanFragment extends Fragment {
             }
         });
 
-        readFromDB();
-        if (!sportsmanList.isEmpty()) {
+        presenter.loadSportsmen();
+        if (!presenter.isSportsmanListNull()) {
             initRecycleView();
         }
         return view;
@@ -65,7 +66,7 @@ public class SportsmanFragment extends Fragment {
     private void initRecycleView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.sportsman_recycler);
         //создаем адаптер
-        recycleAdapter = new SportsmanRecycleAdapter(sportsmanList,
+        recycleAdapter = new SportsmanRecycleAdapter(presenter.getSportsmenList(),
                 new SportsmanRecycleAdapter.OnItemLongClickListener() {
                     @Override
                     public void longClick(View v, Sportsman sportsman, int position) {
@@ -89,7 +90,8 @@ public class SportsmanFragment extends Fragment {
                         showEditActivity(id);
                         return true;
                     case R.id.popup_delete:
-                        deleteSportsman(id, position);
+                        presenter.deleteSportsman(id, position);
+                        deleteSportsmanFromRecycler(position);
                         return true;
                     default:
                         return false;
@@ -100,31 +102,18 @@ public class SportsmanFragment extends Fragment {
         popupMenu.show();
     }
 
+    private void deleteSportsmanFromRecycler(int position) {
+        recycleAdapter.notifyItemRemoved(position);
+    }
+
     private void showEditActivity(Long id) {
         Intent intent = new Intent(getActivity(), SportsmanEditActivity.class);
         intent.putExtra(Const.SPORTSMAN_ID_INTENT, id);
         startActivity(intent);
     }
 
-    private void deleteSportsman(Long id, int position) {
-        //удаляем из БД
-        Sportsman sportsman = Sportsman.findById(Sportsman.class, id);
-        sportsman.delete();
-
-        //удаляем из списка и оповещаем Recycler
-        sportsmanList.remove(position);
-        recycleAdapter.notifyItemRemoved(position);
-
-    }
-
-    private void readFromDB() {
-        sportsmanList = Sportsman.listAll(Sportsman.class);
-    }
-
     private void openAddActivity() {
         Intent intent = new Intent(getActivity(), SportsmanEditActivity.class);
         startActivity(intent);
     }
-
-
 }

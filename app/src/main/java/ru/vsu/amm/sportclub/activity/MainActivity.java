@@ -1,4 +1,4 @@
-package ru.vsu.amm.sportclub.ui.activity;
+package ru.vsu.amm.sportclub.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.ui.adapter.TabsAdapter;
+import ru.vsu.amm.sportclub.adapter.TabsAdapter;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 

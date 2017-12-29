@@ -1,12 +1,10 @@
-package ru.vsu.amm.sportclub.ui.activity;
+package ru.vsu.amm.sportclub.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.icu.text.DateTimePatternGenerator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,17 +12,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.db.models.Competition;
-import ru.vsu.amm.sportclub.db.models.Competitors;
-import ru.vsu.amm.sportclub.db.models.Location;
-import ru.vsu.amm.sportclub.db.models.Sportsman;
+import ru.vsu.amm.sportclub.data.Competition;
+import ru.vsu.amm.sportclub.data.Competitors;
+import ru.vsu.amm.sportclub.data.Location;
+import ru.vsu.amm.sportclub.data.Sportsman;
 
 /**
  * Activity для заполнения данных при добавление/изменении Competition
