@@ -61,7 +61,8 @@ public class CoachModel {
         coachList = Coach.listAll(Coach.class);
     }
 
-    public List<Coach> getCoachList() {
+    public List<Coach>
+    getCoachList() {
         return coachList;
     }
 

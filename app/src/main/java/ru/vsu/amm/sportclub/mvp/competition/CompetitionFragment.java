@@ -1,10 +1,10 @@
-package ru.vsu.amm.sportclub.fragment;
+package ru.vsu.amm.sportclub.mvp.competition;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -13,27 +13,22 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.List;
-
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
-import ru.vsu.amm.sportclub.data.Competitors;
-import ru.vsu.amm.sportclub.activity.CompetitionEditActivity;
 import ru.vsu.amm.sportclub.activity.SportsmenInCompetitionActivity;
 import ru.vsu.amm.sportclub.adapter.CompetitionRecycleAdapter;
 import ru.vsu.amm.sportclub.data.Competition;
 
-public class CompetitionFragment extends Fragment {
+public class CompetitionFragment extends Fragment implements CompetitionView {
 
     private static final int LAYOUT = R.layout.competition_fragment;
 
     private View view;
     private RecyclerView recyclerView;
     private CompetitionRecycleAdapter recycleAdapter;
-    private List<Competition> competitionList;
     private FloatingActionButton btnAddCompetition;
+
+    private CompetitionPresenter presenter;
 
     public static CompetitionFragment getInstance() {
         Bundle args = new Bundle();
@@ -45,8 +40,12 @@ public class CompetitionFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
+
+        CompetitionModel model = new CompetitionModel();
+        presenter = new CompetitionPresenter(model);
+        presenter.attachView(this);
 
         btnAddCompetition = (FloatingActionButton) view.findViewById(R.id.btn_add_competition);
         btnAddCompetition.setOnClickListener(new View.OnClickListener() {
@@ -56,27 +55,23 @@ public class CompetitionFragment extends Fragment {
             }
         });
 
-
-        try {
-            readFromDB();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Не удалось считать Competition", Toast.LENGTH_SHORT).show();
-        }
-        try {
-            if (!competitionList.isEmpty() || competitionList != null) {
-                initRecycleView();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "competitionList Exception", Toast.LENGTH_SHORT).show();
+        presenter.loadCompetition();
+        if (!presenter.isCompetitionListNull()) {
+            initRecycleView();
         }
 
         return view;
     }
 
+    private void openAddActivity() {
+        Intent intent = new Intent(getActivity(), CompetitionEditActivity.class);
+        startActivity(intent);
+    }
+
     private void initRecycleView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.competition_recycler);
         //создаем адаптер
-        recycleAdapter = new CompetitionRecycleAdapter(competitionList,
+        recycleAdapter = new CompetitionRecycleAdapter(presenter.getCompetitionList(),
                 new CompetitionRecycleAdapter.OnItemClickListener() {
                     @Override
                     public void click(View v, Competition competition) {
@@ -108,7 +103,8 @@ public class CompetitionFragment extends Fragment {
                         showEditActivity(id);
                         return true;
                     case R.id.popup_delete:
-                        deleteCompetition(id, position);
+                        presenter.deleteCompetition(id, position);
+                        deleteCompetitionFromRecycler(position);
                         return true;
                     default:
                         return false;
@@ -119,20 +115,7 @@ public class CompetitionFragment extends Fragment {
         popupMenu.show();
     }
 
-    private void deleteCompetition(Long id, int position) {
-        Competition competition = Competition.findById(Competition.class, id);
-
-        //удалим все упоминания этого соревнования в SportsmenAndCompetition
-        List<Competitors> competitors = Competitors.find(Competitors.class, "competition = ?", String.valueOf(id));
-        for (Competitors c : competitors) {
-            c.delete();
-        }
-
-        //удаляем из собственной таблицы (Competition)
-        competition.delete();
-
-        //удаляем из списка и оповещаем RecyclerView
-        competitionList.remove(position);
+    private void deleteCompetitionFromRecycler(int position) {
         recycleAdapter.notifyItemRemoved(position);
     }
 
@@ -141,14 +124,4 @@ public class CompetitionFragment extends Fragment {
         intent.putExtra(Const.COMPETITION_ID_INTENT, id);
         startActivity(intent);
     }
-
-    private void readFromDB() {
-        competitionList = Competition.listAll(Competition.class);
-    }
-
-    private void openAddActivity() {
-        Intent intent = new Intent(getActivity(), CompetitionEditActivity.class);
-        startActivity(intent);
-    }
-
 }

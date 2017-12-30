@@ -53,4 +53,8 @@ public class SportsmanPresenter {
     public Sportsman getSportsman(Long id) {
         return model.getSportsman(id);
     }
+
+    public List<Sportsman> getSportsmenWithoutInjury() {
+        return model.getSportsmenWithoutInjury();
+    }
 }

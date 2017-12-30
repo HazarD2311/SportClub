@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import ru.vsu.amm.sportclub.Const;
-import ru.vsu.amm.sportclub.fragment.CompetitionFragment;
 import ru.vsu.amm.sportclub.mvp.coach.CoachFragment;
+import ru.vsu.amm.sportclub.mvp.competition.CompetitionFragment;
 import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {

@@ -32,10 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.coach.CoachEditActivity"/>
-        <activity android:name=".mvp.sportsman.SportsmanEditActivity"/>
-        <activity android:name=".activity.CompetitionEditActivity" />
-        <activity android:name=".activity.SportsmenInCompetitionActivity"/>
+        <activity android:name=".mvp.coach.CoachEditActivity" />
+        <activity android:name=".mvp.sportsman.SportsmanEditActivity" />
+        <activity android:name=".mvp.competition.CompetitionEditActivity" />
+        <activity android:name=".activity.SportsmenInCompetitionActivity" />
     </application>
 
 </manifest>
