@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
@@ -61,12 +62,16 @@ public class SportsmanEditActivity extends AppCompatActivity implements Sportsma
         btnExceptAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (id != -1) {
-                    presenter.updateSportsman(id, getNewSportsman());
+                if (isValidInput()) {
+                    if (id != -1) {
+                        presenter.updateSportsman(id, getNewSportsman());
+                    } else {
+                        presenter.addNewSportsman(getNewSportsman());
+                    }
+                    backToMainActivity();
                 } else {
-                    presenter.addNewSportsman(getNewSportsman());
+                    Toast.makeText(SportsmanEditActivity.this, "Вы ввели не все данные", Toast.LENGTH_SHORT).show();
                 }
-                backToMainActivity();
             }
         });
     }
@@ -156,6 +161,20 @@ public class SportsmanEditActivity extends AppCompatActivity implements Sportsma
             }
         });
     }
+
+    private boolean isValidInput() {
+        if (surname.getText().toString().equals("")) return false;
+        if (name.getText().toString().equals("")) return false;
+        if (age.getText().toString().equals("")) return false;
+        if (gender.getText().toString().equals("")) return false;
+        if (kindOfSport.getText().toString().equals("")) return false;
+        if (qualification.getText().toString().equals("")) return false;
+        if (rating.getText().toString().equals("")) return false;
+        if (injury.getText().toString().equals("")) return false;
+
+        return true;
+    }
+
 
     private void backToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

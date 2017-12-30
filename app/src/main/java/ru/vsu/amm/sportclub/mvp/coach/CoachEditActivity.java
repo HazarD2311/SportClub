@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
@@ -48,12 +49,16 @@ public class CoachEditActivity extends AppCompatActivity implements CoachView {
         btnExceptAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (id != -1) {
-                    presenter.updateCoach(id, getNewCoach());
+                if (isValidInput()) {
+                    if (id != -1) {
+                        presenter.updateCoach(id, getNewCoach());
+                    } else {
+                        presenter.addNewCoach(getNewCoach());
+                    }
+                    backToMainActivity();
                 } else {
-                    presenter.addNewCoach(getNewCoach());
+                    Toast.makeText(CoachEditActivity.this, "Вы ввели не все данные", Toast.LENGTH_SHORT).show();
                 }
-                backToMainActivity();
             }
         });
     }
@@ -112,6 +117,18 @@ public class CoachEditActivity extends AppCompatActivity implements CoachView {
         coach.setRating(strRating);
 
         return coach;
+    }
+
+    private boolean isValidInput() {
+        if (surname.getText().toString().equals("")) return false;
+        if (name.getText().toString().equals("")) return false;
+        if (age.getText().toString().equals("")) return false;
+        if (gender.getText().toString().equals("")) return false;
+        if (kindOfSport.getText().toString().equals("")) return false;
+        if (qualification.getText().toString().equals("")) return false;
+        if (rating.getText().toString().equals("")) return false;
+
+        return true;
     }
 
     private void backToMainActivity() {
