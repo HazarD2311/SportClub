@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
 import ru.vsu.amm.sportclub.activity.SportsmenInCompetitionActivity;
@@ -55,7 +57,11 @@ public class CompetitionFragment extends Fragment implements CompetitionView {
             }
         });
 
-        presenter.loadCompetition();
+        try {
+            presenter.loadCompetition();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "БД еще пустая", Toast.LENGTH_SHORT).show();
+        }
         if (!presenter.isCompetitionListNull()) {
             initRecycleView();
         }

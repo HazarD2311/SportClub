@@ -48,6 +48,7 @@ public class SportsmanEditActivity extends AppCompatActivity implements Sportsma
             fillFieldsFromEdit(id);
         }
 
+        //TODO сделать проверку (вдруг еще не добавлено ни одного тренера)
         //получаем список Тренеров, для последующего подставления в Spinner
         presenter.loadSportsmen();
         initCoachSpinner();
