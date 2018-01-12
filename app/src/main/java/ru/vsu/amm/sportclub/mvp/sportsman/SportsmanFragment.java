@@ -95,8 +95,12 @@ public class SportsmanFragment extends Fragment implements SportsmanView {
                         showEditActivity(id);
                         return true;
                     case R.id.popup_delete:
-                        presenter.deleteSportsman(id, position);
-                        deleteSportsmanFromRecycler(position);
+                        if (!presenter.isCompetitor(id)) {
+                            presenter.deleteSportsman(id, position);
+                            deleteSportsmanFromRecycler(position);
+                        } else {
+                            Toast.makeText(getActivity(), "Этот спортсмен участвует в соревновании!", Toast.LENGTH_SHORT).show();
+                        }
                         return true;
                     default:
                         return false;

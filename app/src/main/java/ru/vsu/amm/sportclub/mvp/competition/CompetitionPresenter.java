@@ -4,6 +4,7 @@ package ru.vsu.amm.sportclub.mvp.competition;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.data.Competition;
+import ru.vsu.amm.sportclub.data.Competitors;
 import ru.vsu.amm.sportclub.data.Sportsman;
 import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanModel;
 import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanPresenter;
@@ -43,6 +44,10 @@ public class CompetitionPresenter {
 
     public void loadCompetition() {
         model.readFromDB();
+    }
+
+    public List<Competitors> getSportsmenCompetition(Long idSportsman) {
+        return model.getSportsmenCompetition(idSportsman);
     }
 
     public List<Competition> getCompetitionList() {

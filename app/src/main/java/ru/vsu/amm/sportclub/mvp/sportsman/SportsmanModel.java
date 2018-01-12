@@ -55,6 +55,7 @@ public class SportsmanModel {
         return sportsmanList == null;
     }
 
+
     public List<Sportsman> getSportsmanList() {
         return sportsmanList;
     }

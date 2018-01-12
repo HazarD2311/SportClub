@@ -63,6 +63,10 @@ public class CompetitionModel {
         return this.competitionList;
     }
 
+    public List<Competitors> getSportsmenCompetition(Long idSportsman) {
+        return Competitors.find(Competitors.class, "sportsman = ?", idSportsman.toString());
+    }
+
     public Competition getCompetition(Long id) {
         return Competition.findById(Competition.class, id);
     }
