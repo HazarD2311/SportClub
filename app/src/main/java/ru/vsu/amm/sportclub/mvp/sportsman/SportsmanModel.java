@@ -59,8 +59,8 @@ public class SportsmanModel {
         return sportsmanList;
     }
 
-    public List<Sportsman> getSportsmenWithoutInjury() {
-        List<Sportsman> sportsmen = Sportsman.find(Sportsman.class, "injury = ?", "нет");
+    public List<Sportsman> getCandidates(String kindOfSport) {
+        List<Sportsman> sportsmen = Sportsman.find(Sportsman.class, "injury = ? and kind_of_sport = ?", "нет", kindOfSport);
         return sportsmen;
     }
 }

@@ -53,8 +53,8 @@ public class CompetitionPresenter {
         return model.getCompetition(id);
     }
 
-    public List<Sportsman> getSportsmenWithoutInjury() {
+    public List<Sportsman> getCandidates(String kindOfSport) {
         SportsmanPresenter sportsmanPresenter = new SportsmanPresenter(new SportsmanModel());
-        return sportsmanPresenter.getSportsmenWithoutInjury();
+        return sportsmanPresenter.getCandidates(kindOfSport);
     }
 }

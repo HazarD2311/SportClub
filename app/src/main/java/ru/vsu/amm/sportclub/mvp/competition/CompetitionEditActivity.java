@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -25,11 +26,11 @@ import ru.vsu.amm.sportclub.data.Sportsman;
 
 public class CompetitionEditActivity extends AppCompatActivity implements CompetitionView {
 
-    private Button btnExceptAdd, btnFillFields;
+    private Button btnExceptAdd, btnFindCandidates;
     private EditText edName, edKindOfSport, edLocationName, edLocationAddress, edDate;
     private ListView chooseSportsmen;
     private Sportsman[] sportsmenInCompetition;
-
+    private List<Sportsman> sportsmenCanGo;
     private CompetitionPresenter presenter;
 
     @Override
@@ -43,11 +44,20 @@ public class CompetitionEditActivity extends AppCompatActivity implements Compet
         initResources();
         useDatePicker();
         //список с кандитатами на турнир
-        final List<Sportsman> sportsmenCanGo = presenter.getSportsmenWithoutInjury();
-        initListSportsmen(sportsmenCanGo);
-        getSportsmenInCompetition(sportsmenCanGo);
+        btnFindCandidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edKindOfSport.getText().toString().equals("")) {
+                    Toast.makeText(CompetitionEditActivity.this, "Вы не ввели вид спорта!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String kindOfSport = edKindOfSport.getText().toString();
+                    sportsmenCanGo = presenter.getCandidates(kindOfSport);
+                    initListSportsmen(sportsmenCanGo);
+                    getSportsmenInCompetition(sportsmenCanGo);
+                }
+            }
+        });
 
-        btnExceptAdd = (Button) findViewById(R.id.btn_except_add_competition);
         btnExceptAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,8 +68,8 @@ public class CompetitionEditActivity extends AppCompatActivity implements Compet
     }
 
     private void initResources() {
-        btnExceptAdd = (Button) findViewById(R.id.btn_add_competition);
-        btnFillFields = (Button) findViewById(R.id.btn_fill_fields_competition);
+        btnExceptAdd = (Button) findViewById(R.id.btn_except_add_competition);
+        btnFindCandidates = (Button) findViewById(R.id.btn_find_candidates_competition);
         edName = (EditText) findViewById(R.id.edit_competition_name);
         edKindOfSport = (EditText) findViewById(R.id.edit_competition_kind_of_sport);
         edLocationName = (EditText) findViewById(R.id.edit_competition_location_name);

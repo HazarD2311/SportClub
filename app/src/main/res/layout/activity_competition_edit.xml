@@ -108,11 +108,11 @@
             android:text="Добавить" />
 
         <Button
-            android:id="@+id/btn_fill_fields_competition"
+            android:id="@+id/btn_find_candidates_competition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Заполнить" />
+            android:text="Подобрать кандидатов" />
     </LinearLayout>
 
 </LinearLayout>

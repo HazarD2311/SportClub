@@ -54,7 +54,7 @@ public class SportsmanPresenter {
         return model.getSportsman(id);
     }
 
-    public List<Sportsman> getSportsmenWithoutInjury() {
-        return model.getSportsmenWithoutInjury();
+    public List<Sportsman> getCandidates(String kindOfSport) {
+        return model.getCandidates(kindOfSport);
     }
 }
