@@ -12,9 +12,13 @@ public class Competition extends SugarRecord {
     private String kindOfSport;
     private Location location;
     private String date;
+    //завершено ли соревнование
+    private Boolean isComplete;
+    private Sportsman winner;
 
     public Competition() {
-
+        this.isComplete = false;
+        this.winner = null;
     }
 
     public Competition(String name, String kind_of_sport, Location location, String date) {
@@ -59,5 +63,21 @@ public class Competition extends SugarRecord {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Boolean getComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(Boolean complete) {
+        isComplete = complete;
+    }
+
+    public Sportsman getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Sportsman winner) {
+        this.winner = winner;
     }
 }

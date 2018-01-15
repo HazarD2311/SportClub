@@ -3,9 +3,12 @@ package ru.vsu.amm.sportclub.mvp.competition;
 
 import java.util.List;
 
+import ru.vsu.amm.sportclub.data.Coach;
 import ru.vsu.amm.sportclub.data.Competition;
 import ru.vsu.amm.sportclub.data.Competitors;
 import ru.vsu.amm.sportclub.data.Sportsman;
+import ru.vsu.amm.sportclub.mvp.coach.CoachModel;
+import ru.vsu.amm.sportclub.mvp.coach.CoachPresenter;
 import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanModel;
 import ru.vsu.amm.sportclub.mvp.sportsman.SportsmanPresenter;
 
@@ -44,6 +47,28 @@ public class CompetitionPresenter {
 
     public void loadCompetition() {
         model.readFromDB();
+    }
+
+    public void completeCompetition(int position) {
+        model.completeCompetition(position);
+    }
+
+    public void addPointsToWinner(Sportsman winner) {
+        SportsmanModel sModel = new SportsmanModel();
+        sModel.addPointsToWinner(winner);
+
+
+        //добавляем очки тренеру победившего участника
+        CoachPresenter cPresenter = new CoachPresenter(new CoachModel());
+        cPresenter.addPoints(winner.getCoach());
+    }
+
+    public void setWinner(int which, Sportsman[] competitors, Long idCompetition) {
+        model.setWinner(idCompetition, competitors[which]);
+    }
+
+    public Sportsman[] getSportsmenInCompetition(Competition competition) {
+        return model.getSportsmenInCompetition(competition);
     }
 
     public List<Competitors> getSportsmenCompetition(Long idSportsman) {

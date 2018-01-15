@@ -3,6 +3,7 @@ package ru.vsu.amm.sportclub.mvp.coach;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.data.Coach;
+import ru.vsu.amm.sportclub.data.Sportsman;
 
 public class CoachPresenter {
 
@@ -35,6 +36,11 @@ public class CoachPresenter {
     public void deleteCoach(Long id, int position) {
         model.deleteCoach(id);
         model.removeFromList(position);
+    }
+
+    public void addPoints(Coach coach) {
+        coach.addPoint();
+        coach.save();
     }
 
     public Boolean isCoachListNull() {

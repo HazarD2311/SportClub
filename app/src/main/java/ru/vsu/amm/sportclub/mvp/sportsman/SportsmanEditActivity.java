@@ -142,7 +142,6 @@ public class SportsmanEditActivity extends AppCompatActivity implements Sportsma
 
     private void initCoachSpinner() {
         coachSpinner = (Spinner) findViewById(R.id.sportsman_choose_coach_spinner);
-        //TODO не является ли это антипаттерном???
         CoachPresenter cPresenter = new CoachPresenter(new CoachModel());
         cPresenter.loadCoaches();
 

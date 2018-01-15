@@ -14,7 +14,7 @@ public class Coach extends SugarRecord {
     private int rating;
 
     public Coach() {
-
+        this.rating = 0;
     }
 
     public Coach(String surname, String name, int age, String gender, String kindOfSport, String qualification, int rating) {
@@ -25,6 +25,10 @@ public class Coach extends SugarRecord {
         this.kindOfSport = kindOfSport;
         this.qualification = qualification;
         this.rating = rating;
+    }
+
+    public void addPoint() {
+        this.rating++;
     }
 
     public String getSurname() {

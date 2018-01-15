@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
+    android:id="@+id/item_competition_linear"
     android:background="@color/item_background"
     android:orientation="vertical"
     android:padding="7dp">

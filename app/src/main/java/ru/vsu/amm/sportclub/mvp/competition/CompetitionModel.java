@@ -1,5 +1,6 @@
 package ru.vsu.amm.sportclub.mvp.competition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.amm.sportclub.data.Competition;
@@ -51,12 +52,33 @@ public class CompetitionModel {
         competition.delete();
     }
 
+    public void completeCompetition(int position) {
+        Competition competition = competitionList.get(position);
+        competition.setComplete(true);
+        competition.save();
+    }
+
     public void removeFromList(int position) {
         competitionList.remove(position);
     }
 
     public void readFromDB() {
         competitionList = Competition.listAll(Competition.class);
+    }
+
+    public void setWinner(Long idCompetition, Sportsman winner) {
+        Competition competition = Competition.findById(Competition.class, idCompetition);
+        competition.setWinner(winner);
+        competition.save();
+    }
+
+    public Sportsman[] getSportsmenInCompetition(Competition competition) {
+        List<Competitors> competitors = Competitors.find(Competitors.class, "competition = ?", competition.getId().toString());
+        List<Sportsman> sportsmenInCompetition = new ArrayList<>();
+        for (Competitors c : competitors) {
+            sportsmenInCompetition.add(c.getSportsman());
+        }
+        return sportsmenInCompetition.toArray(new Sportsman[sportsmenInCompetition.size()]);
     }
 
     public List<Competition> getCompetitionList() {

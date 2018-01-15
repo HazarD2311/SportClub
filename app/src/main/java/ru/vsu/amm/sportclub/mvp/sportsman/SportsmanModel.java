@@ -2,6 +2,7 @@ package ru.vsu.amm.sportclub.mvp.sportsman;
 
 import java.util.List;
 
+import ru.vsu.amm.sportclub.data.Coach;
 import ru.vsu.amm.sportclub.data.Sportsman;
 
 public class SportsmanModel {
@@ -43,6 +44,11 @@ public class SportsmanModel {
         sportsmanList.remove(position);
     }
 
+    public void addPointsToWinner(Sportsman sportsman) {
+        sportsman.addPoint();
+        sportsman.save();
+    }
+
     public void readFromDB() {
         sportsmanList = Sportsman.listAll(Sportsman.class);
     }
@@ -54,7 +60,6 @@ public class SportsmanModel {
     public Boolean isSportsmanListNull() {
         return sportsmanList == null;
     }
-
 
     public List<Sportsman> getSportsmanList() {
         return sportsmanList;

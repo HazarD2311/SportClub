@@ -1,10 +1,12 @@
 package ru.vsu.amm.sportclub.mvp.competition;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.Arrays;
+import java.util.List;
+
 import ru.vsu.amm.sportclub.Const;
 import ru.vsu.amm.sportclub.R;
 import ru.vsu.amm.sportclub.activity.SportsmenInCompetitionActivity;
 import ru.vsu.amm.sportclub.adapter.CompetitionRecycleAdapter;
 import ru.vsu.amm.sportclub.data.Competition;
+import ru.vsu.amm.sportclub.data.Sportsman;
 
 public class CompetitionFragment extends Fragment implements CompetitionView {
 
@@ -105,10 +111,15 @@ public class CompetitionFragment extends Fragment implements CompetitionView {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.popup_edit:
-                        showEditActivity(id);
+                    case R.id.popup_complete_competition:
+                        showDialogWithCompetitors(
+                                presenter.getSportsmenInCompetition(presenter.getCompetition(id)),
+                                id
+                        );
+                        presenter.completeCompetition(position);
+                        setItemRecyclerBackground(position);
                         return true;
-                    case R.id.popup_delete:
+                    case R.id.popup_delete_competition:
                         presenter.deleteCompetition(id, position);
                         deleteCompetitionFromRecycler(position);
                         return true;
@@ -117,17 +128,49 @@ public class CompetitionFragment extends Fragment implements CompetitionView {
                 }
             }
         });
-        popupMenu.inflate(R.menu.popup);
+        popupMenu.inflate(R.menu.popup_competition);
         popupMenu.show();
+    }
+
+    private void showDialogWithCompetitors(final Sportsman[] competitors, final Long idCompetition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Выберите победителя");
+        //String[] strCompetitors = Arrays.copyOf(competitors, competitors.length, String[].class);
+        // TODO придумать что-нибудь другое, но не преобразование в ручную
+        String[] strCompetitors = convertMass(competitors);
+        builder.setItems(strCompetitors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.setWinner(which, competitors, idCompetition);
+                presenter.addPointsToWinner(competitors[which]);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void deleteCompetitionFromRecycler(int position) {
         recycleAdapter.notifyItemRemoved(position);
     }
 
+    private void setItemRecyclerBackground(int position) {
+        recycleAdapter.notifyItemChanged(position);
+    }
+
     private void showEditActivity(Long id) {
         Intent intent = new Intent(getActivity(), CompetitionEditActivity.class);
         intent.putExtra(Const.COMPETITION_ID_INTENT, id);
         startActivity(intent);
+    }
+
+    private String[] convertMass(Sportsman[] mass) {
+        String[] strMass = new String[mass.length];
+
+        for (int i = 0; i < mass.length; i++) {
+            strMass[i] = mass[i].toString();
+        }
+
+        return strMass;
     }
 }

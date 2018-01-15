@@ -46,6 +46,10 @@ public class Sportsman extends SugarRecord {
         return this.getSurname() + " " + this.getName() + ": " + this.getKindOfSport();
     }
 
+    public void addPoint() {
+        this.rating++;
+    }
+
     public String getSurname() {
         return surname;
     }

@@ -1,5 +1,6 @@
 package ru.vsu.amm.sportclub.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class CompetitionRecycleAdapter extends RecyclerView.Adapter<CompetitionR
         if (competition.getLocation() != null)
             holder.location.setText(competition.getLocation().toString());
         holder.date.setText(competition.getDate());
+        if (competition.getComplete())
+            holder.itemView.setBackgroundColor(Color.RED);
 
         if (clickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
